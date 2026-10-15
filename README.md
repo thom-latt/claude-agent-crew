@@ -4,36 +4,12 @@ A [Claude Code](https://claude.com/claude-code) mod that shows your agents and s
 
 > Unofficial community project. Not affiliated with, endorsed or sponsored by Anthropic.
 
-## Screenshots
-
-<!-- Put the images in docs/screenshots/ under these names. A PNG at 2× (Retina) stays sharp. -->
-
-**The band above the prompt**: usage limits, agents and session cost.
-
-| Light | Dark |
-|---|---|
-| ![Band, light theme](docs/screenshots/band-light.png) | ![Band, dark theme](docs/screenshots/band-dark.png) |
-
-**The detail pane**: the main agent, live subagents, and history.
-
-![Agents pane](docs/screenshots/pane.png)
-
-**A report expanded** with `▸ report`.
-
-![Agent report](docs/screenshots/pane-report.png)
-
-**In a terminal.**
-
-![Terminal band](docs/screenshots/terminal.png)
-
 ## What you get
 
 **A one-line band above the prompt.** It is always visible and stays the height of a single line.
 
-```
-5h ▰▰▱▱▱  24%   ( Agents 2/3 )  👑 🎩 🧙  ≈$4.20          ⤢
-7d ▰▱▱▱▱  12%
-```
+![Band, light theme](docs/screenshots/band-light.png)
+![Band, dark theme](docs/screenshots/band-dark.png)
 
 - **Usage limits**: your current session (5h) and weekly (7d) windows, as % used. The bar turns amber at 75% and red at 90%, and the tooltip gives the reset time. Every open session shows the latest reading from any of them.
 - **The agents pill**: it fills as agents work. Next to it is one animated mascot per live agent: the main agent wears a crown, and each subagent gets a stable outfit (wizard, chef, viking, DJ…).
@@ -41,21 +17,14 @@ A [Claude Code](https://claude.com/claude-code) mod that shows your agents and s
 
 **A detail pane.** Open it with `⤢` or `/crew`.
 
-```
-3 active · 2 resting                              ≈$47.60
-Claude                              16:18          1h 12m
-main · Opus 5.5 · high                             $45.91
-● working                           ▰▰▱▱▱             26%
-  ↳ Explore band layout             17:21          3m 05s
-    Explore · Sonnet 5.5 · medium                   $0.42
-    ● working  ▸ report             ▱▱▱▱▱              5%
-History
-UI/UX design for limit gauges       17:01          2m 33s
-general-purpose · Opus 5.5 · high                   $1.18
-✓ done  ▸ report
-```
+![Agents pane](docs/screenshots/pane.png)
 
 Each row shows the start time, the duration, the agent's own estimated cost, and a context gauge. `▸ report` expands the agent's task and its final answer. Finished agents move to a History section, and it comes back when you resume the session.
+
+**In a terminal.**
+
+![Terminal band](docs/screenshots/console-idle-dark.png)
+![Terminal band](docs/screenshots/console-working-dark.png)
 
 ## Requirements
 
