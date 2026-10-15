@@ -76,7 +76,7 @@ The mod sends nothing anywhere. To give you history across restarts and limits t
 - **Per session:** each subagent's name, type, model, timings, token counts and estimated cost. It also keeps the first 1,500 characters of the task each subagent was given and the first 6,000 characters of its report.
 - **Shared by your sessions:** the latest usage-limit reading.
 
-When the store fills up, the oldest sessions' history is dropped first. Delete that file to erase it all.
+A session's history is deleted after 30 days, like Claude Code's own transcripts by default, or sooner if the store fills up. Delete that file to erase it all.
 
 ## About the numbers
 
@@ -134,6 +134,7 @@ Contributions are welcome. Bug fixes, new outfits, price updates and UI ideas al
 - **A test** in `hooks/register.test.ts` for any calculation or format you touch. The existing ones cover prices, formats, the limits gauge, history and the band layout.
 - **A before/after screenshot** for any visual change. A light and a dark one is ideal.
 - **A link to the source** for any price change: Anthropic's pricing page and the date you read it.
+- **No new capability without a reason.** The mod reads the session and draws; it runs no commands, touches no files besides its own store, and makes no network calls. A pull request that adds a call such as `$.process`, `$.fs` or `$.model` must say why. `claude plugin validate .` lists every call on its `calls:` line.
 
 By contributing, you agree that your contribution is released under this project's [MIT License](LICENSE).
 

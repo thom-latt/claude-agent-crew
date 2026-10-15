@@ -1,6 +1,6 @@
 {
   "name": "agent-crew",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Your Claude Code agents and subagents live, as pixel mascots, with cost, context and usage limits",
   "author": {
     "name": "Thomas Latterner"

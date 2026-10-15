@@ -522,6 +522,18 @@ export const restore = (saved: Saved): CrewMember[] =>
     isEnded(m.status) ? m : { ...m, status: isActive(m.status) ? 'killed' : 'completed', endedAt: m.endedAt ?? saved.savedAt },
   )
 const HISTORY = 'history:'
+// Like Claude Code's own transcripts (cleanupPeriodDays, 30 by default): an older history is deleted.
+const HISTORY_DAYS = 30
+export const isStale = (saved: unknown, now: number) => {
+  const at = (saved as Saved | undefined)?.savedAt
+
+  return typeof at !== 'number' || now - at > HISTORY_DAYS * 86_400_000
+}
+
+// A task or report is model output, which what the agent read can steer (prompt injection). An image in it would
+// load as soon as the report opens, its URL carrying whatever the model was led to put there. A zero-width space
+// between "!" and "[" turns every image into a plain link, opened only on a click; the text reads the same.
+export const withoutImages = (markdown: string) => markdown.replace(/!\[/g, '!\u200b[')
 
 // The limits are the account's: every session shares its readings, and each shows the latest of all.
 const LIMITS = 'limits'
@@ -598,6 +610,10 @@ export const register: Register = on => {
 
     // A resumed session gets its history back; a hot reload still holds it in $.state.
     try {
+      const now = await $.clock.now()
+      for (const key of (await $.store.keys()).filter(k => k.startsWith(HISTORY))) {
+        if (isStale(await $.store.get(key), now)) await $.store.delete(key)
+      }
       const saved = (await $.store.get(HISTORY + (await $.session.id()))) as Saved | undefined
       if (saved && Array.isArray(saved.agents) && !(await read($, agents)).length) await update($, agents, () => restore(saved))
     } catch {
@@ -809,8 +825,8 @@ export const register: Register = on => {
       )
       const report = isOpen && (
         <Box paddingLeft={depth * 2 + 2} flexDirection="column">
-          {m.prompt && <Markdown key={`prompt-${m.id}`} dimColor text={`**Task**\n\n${m.prompt}`} />}
-          <Markdown key={`answer-${m.id}`} text={m.answer ? `**Report**\n\n${m.answer}` : '_No report yet._'} />
+          {m.prompt && <Markdown key={`prompt-${m.id}`} dimColor text={`**Task**\n\n${withoutImages(m.prompt)}`} />}
+          <Markdown key={`answer-${m.id}`} text={m.answer ? `**Report**\n\n${withoutImages(m.answer)}` : '_No report yet._'} />
         </Box>
       )
       const info = (
