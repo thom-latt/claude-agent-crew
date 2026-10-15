@@ -1,0 +1,17 @@
+{
+  "name": "agent-crew",
+  "version": "0.6.1",
+  "description": "Your Claude Code agents and subagents live, as pixel mascots, with cost, context and usage limits",
+  "author": {
+    "name": "Thomas Latterner"
+  },
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "subagents",
+    "usage",
+    "cost",
+    "statusline"
+  ],
+  "types": "./types/index.d.ts"
+}

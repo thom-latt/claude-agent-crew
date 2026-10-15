@@ -1,0 +1,13 @@
+{
+  "name": "thomas-mods",
+  "description": "Claude Code mods by Thomas Latterner",
+  "owner": {
+    "name": "Thomas Latterner"
+  },
+  "plugins": [
+    {
+      "name": "agent-crew",
+      "source": "./"
+    }
+  ]
+}

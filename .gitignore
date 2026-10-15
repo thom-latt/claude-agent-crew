@@ -1,0 +1,3 @@
+# Typings Claude Code lays into a loaded mod: the engine's, not this project's.
+.claude-plugin/types/
+.DS_Store
