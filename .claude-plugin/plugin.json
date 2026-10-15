@@ -5,6 +5,8 @@
   "author": {
     "name": "Thomas Latterner"
   },
+  "homepage": "https://github.com/thom-latt/claude-agent-crew",
+  "repository": "https://github.com/thom-latt/claude-agent-crew",
   "license": "MIT",
   "keywords": [
     "agents",

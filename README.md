@@ -4,6 +4,15 @@ A [Claude Code](https://claude.com/claude-code) mod that shows your agents and s
 
 > Unofficial community project. Not affiliated with, endorsed or sponsored by Anthropic.
 
+## Why I made it
+
+I built agent-crew because I wanted four things in Claude Code:
+
+- **My quotas always in sight.** My session and weekly limits are in front of me all the time, so I don't have to go and look them up.
+- **What it would cost at API prices.** On a subscription you don't pay per token, but I wanted to know what my work would have cost on the API. That is what every cost in the mod shows.
+- **A constant view of what is going on.** I want to see who is working, who is waiting and who is done, without digging.
+- **A playful way into subagents.** Each agent is a little character in its own outfit. A click away is its state, what it was asked, and what it answered.
+
 ## What you get
 
 **A one-line band above the prompt.** It is always visible and stays the height of a single line.
@@ -39,13 +48,13 @@ The usage-limit gauge needs a Claude subscription. Without one it simply doesn't
 From a terminal Claude Code session:
 
 ```
-/plugin install agent-crew --marketplace <github-user>/agent-crew
+/plugin install agent-crew --marketplace thom-latt/claude-agent-crew
 ```
 
 Or from your shell:
 
 ```bash
-claude plugin marketplace add <github-user>/agent-crew
+claude plugin marketplace add thom-latt/claude-agent-crew
 ```
 
 ```bash
@@ -71,6 +80,7 @@ When the store fills up, the oldest sessions' history is dropped first. Delete t
 
 ## About the numbers
 
+- **Every cost is at API prices.** On a subscription, it is what the same work would cost on the API, not what you are billed.
 - **Session total:** this is Claude Code's own `/cost` figure.
 - **Per-agent costs:** these are estimates made from Anthropic's public list prices, which are included in the code with the date they were read.
   - Cache writes are priced at the 5-minute rate.
@@ -85,15 +95,20 @@ Contributions are welcome. Bug fixes, new outfits, price updates and UI ideas al
 
 **Small fixes:** open a pull request directly. Typos, a new price, a bug with an obvious fix all go this way.
 
-**Bigger changes:** open an issue first, so we agree on the idea before you spend time on it. That covers a new feature or a layout change.
+**Bigger changes:** [open an issue](https://github.com/thom-latt/claude-agent-crew/issues) first, so we agree on the idea before you spend time on it. That covers a new feature or a layout change.
 
 **Try your change in a real session:**
 
-1. Fork and clone the repository.
+1. [Fork the repository](https://github.com/thom-latt/claude-agent-crew/fork) and clone your fork:
+
+   ```bash
+   git clone https://github.com/<you>/claude-agent-crew
+   ```
+
 2. Start Claude Code on your copy:
 
    ```bash
-   claude --plugin-dir ./agent-crew
+   claude --plugin-dir ./claude-agent-crew
    ```
 
    The folder is watched, so each save reloads the mod. If you also installed it from the marketplace, disable that copy first:
